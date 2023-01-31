@@ -9,11 +9,13 @@ type Student struct {
 	email   string
 }
 
-func (s *Student) Init(name, surname, email string, age int) {
-	s.name = name
-	s.surname = surname
-	s.email = email
-	s.age = age
+func Init(newName, newSurname, newEmail string, newAge int) Student{
+	return Student{
+		name: newName,
+		surname: newSurname,
+		email: newEmail,
+		age: newAge,
+	}
 }
 
 func (s *Student) GetAge() int {
