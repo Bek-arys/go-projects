@@ -1,3 +1,3 @@
-module github.com/Bek-arys/go-projects/my_modules
+module github.com/Bek-arys/go-projects
 
 go 1.19
