@@ -2,6 +2,7 @@ package my_modules
 
 import (
 	"fmt"
+	"sort"
 )
 
 type User struct {
@@ -10,17 +11,30 @@ type User struct {
 	Email    string
 }
 
+type Database struct {
+	Users []User
+}
+
 type Item struct {
 	Name   string
 	Price  float64
 	Rating float64
 }
 
-func (u *User) Register(username, password, email string) {
-	u.Username = username
-	u.Password = password
-	u.Email = email
-	fmt.Println("User Registered:", u.Username)
+type ItemStore struct {
+	Items []Item
+}
+
+func (db *Database) Register(username, password, email string) {
+	u := User{username, password, email}
+	fmt.Println("User Registered: ", u)
+	db.Users = append(db.Users, u)
+}
+
+func (db *Database) SeeUsersList() {
+	for _, user := range db.Users {
+		fmt.Println(user)
+	}
 }
 
 func (u *User) Login(username, password string) bool {
@@ -37,8 +51,9 @@ func (i *Item) GiveRating(rating float64) {
 	fmt.Println("Item Rated:", i.Name)
 }
 
-type ItemStore struct {
-	Items []Item
+func (is *ItemStore) AddingItem(name string, price float64) {
+	var i = Item{name, price, 0}
+	is.Items = append(is.Items, i)
 }
 
 func (is *ItemStore) Search(name string) []Item {
@@ -51,12 +66,18 @@ func (is *ItemStore) Search(name string) []Item {
 	return result
 }
 
-func (is *ItemStore) Filter(price, rating float64) []Item {
-	var result []Item
-	for _, item := range is.Items {
-		if item.Price <= price && item.Rating >= rating {
-			result = append(result, item)
-		}
-	}
+func (is *ItemStore) FilterByPrice(price float64) []Item {
+	result := make([]Item, len(is.Items))
+	sort.Slice(result, func(i, j int) bool {
+		return result[i].Price < result[j].Price
+	})
+	return result
+}
+
+func (is *ItemStore) FilterByRating(price float64) []Item {
+	result := make([]Item, len(is.Items))
+	sort.Slice(result, func(i, j int) bool {
+		return result[i].Rating < result[j].Rating
+	})
 	return result
 }
