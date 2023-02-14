@@ -79,7 +79,7 @@ func (u *User) Search(name string) Item {
 	var result Item
 	for _, item := range u.Items.Items {
 		if item.Name == name {
-			return result
+			return item
 		}
 	}
 	return result
