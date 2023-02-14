@@ -56,9 +56,17 @@ func (u *User) GetItems() {
 	}
 }
 
+func (u User) String() string {
+	return fmt.Sprintf("username: %s, email: %s", u.Username, u.Email)
+}
+
 func (i *Item) GiveRating(rating float64) {
 	i.Rating = rating
 	fmt.Println("Item Rated:", i.Name)
+}
+
+func (i Item) String() string {
+	return fmt.Sprintf("name: %s, price: %f, rating: %f", i.Name, i.Price, i.Rating)
 }
 
 func (is *ItemStore) AddingItem(name string, price float64) {
