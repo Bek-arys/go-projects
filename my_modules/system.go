@@ -62,7 +62,7 @@ func (u User) String() string {
 
 func (i *Item) GiveRating(rating float64) {
 	i.Rating = rating
-	fmt.Println("Item Rated:", i.Name)
+	fmt.Println(i)
 }
 
 func (i Item) String() string {
@@ -75,11 +75,11 @@ func (is *ItemStore) AddingItem(name string, price float64) {
 }
 
 
-func (is *ItemStore) Search(name string) []Item {
-	var result []Item
+func (is *ItemStore) Search(name string) Item {
+	var result Item
 	for _, item := range is.Items {
 		if item.Name == name {
-			result = append(result, item)
+			return result
 		}
 	}
 	return result
