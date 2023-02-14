@@ -69,9 +69,9 @@ func (i Item) String() string {
 	return fmt.Sprintf("name: %s, price: %f, rating: %f", i.Name, i.Price, i.Rating)
 }
 
-func (is *ItemStore) AddingItem(name string, price float64) {
+func (u *User) AddingItem(name string, price float64) {
 	var i = Item{name, price, 0}
-	is.Items = append(is.Items, i)
+	u.Items.Items = append(u.Items.Items, i)
 }
 
 
