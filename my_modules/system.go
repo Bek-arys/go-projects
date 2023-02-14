@@ -60,7 +60,8 @@ func (u User) String() string {
 	return fmt.Sprintf("username: %s, email: %s", u.Username, u.Email)
 }
 
-func (u *User) GiveRating(item *Item, rating float64) {
+func (u *User) GiveRating(name string, rating float64) {
+	item := u.Search(name)
 	item.Rating = rating
 	fmt.Println(item)
 }
