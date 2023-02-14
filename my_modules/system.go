@@ -26,10 +26,11 @@ type ItemStore struct {
 	Items []Item `json:"items list"`
 }
 
-func (db *Database) Register(username, password, email string) {
+func (db *Database) Register(username, password, email string) User{
 	u := User{username, password, email, ItemStore{}}
 	fmt.Println("User Registered: ", u)
 	db.Users = append(db.Users, u)
+	return u
 }
 
 func (db *Database) SeeUsersList() {
@@ -38,15 +39,21 @@ func (db *Database) SeeUsersList() {
 	}
 }
 
-func (db *Database) Login(username, password string) bool {
+func (db *Database) Login(username, password string) User {
 	for _, u := range db.Users {
 		if u.Username == username && u.Password == password {
 			fmt.Println("User Logged in:", u.Username)
-			return true
+			return u
 		}
 	}
 	fmt.Println("Login Failed")
-	return false
+	return User{}
+}
+
+func (u *User) GetItems() {
+	for _, item := range u.Items.Items {
+		fmt.Println(item)
+	}
 }
 
 func (i *Item) GiveRating(rating float64) {
@@ -58,6 +65,7 @@ func (is *ItemStore) AddingItem(name string, price float64) {
 	var i = Item{name, price, 0}
 	is.Items = append(is.Items, i)
 }
+
 
 func (is *ItemStore) Search(name string) []Item {
 	var result []Item
