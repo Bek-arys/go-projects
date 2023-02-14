@@ -75,9 +75,9 @@ func (is *ItemStore) AddingItem(name string, price float64) {
 }
 
 
-func (is *ItemStore) Search(name string) Item {
+func (u *User) Search(name string) Item {
 	var result Item
-	for _, item := range is.Items {
+	for _, item := range u.Items.Items {
 		if item.Name == name {
 			return result
 		}
