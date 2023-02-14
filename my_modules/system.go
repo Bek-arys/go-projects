@@ -6,27 +6,28 @@ import (
 )
 
 type User struct {
-	Username string
-	Password string
-	Email    string
+	Username string `json:"username"`
+	Password string	`json:"password"`
+	Email    string	`json:"email"`
+	Items    ItemStore `json:"items list"`
 }
 
 type Database struct {
-	Users []User
+	Users []User `json:"users"`
 }
 
 type Item struct {
-	Name   string
-	Price  float64
-	Rating float64
+	Name   string `json:"name"`
+	Price  float64 `json:"price"`
+	Rating float64 `json:"rating"`
 }
 
 type ItemStore struct {
-	Items []Item
+	Items []Item `json:"items list"`
 }
 
 func (db *Database) Register(username, password, email string) {
-	u := User{username, password, email}
+	u := User{username, password, email, ItemStore{}}
 	fmt.Println("User Registered: ", u)
 	db.Users = append(db.Users, u)
 }
@@ -37,10 +38,12 @@ func (db *Database) SeeUsersList() {
 	}
 }
 
-func (u *User) Login(username, password string) bool {
-	if u.Username == username && u.Password == password {
-		fmt.Println("User Logged in:", u.Username)
-		return true
+func (db *Database) Login(username, password string) bool {
+	for _, u := range db.Users {
+		if u.Username == username && u.Password == password {
+			fmt.Println("User Logged in:", u.Username)
+			return true
+		}
 	}
 	fmt.Println("Login Failed")
 	return false
