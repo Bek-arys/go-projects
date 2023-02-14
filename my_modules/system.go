@@ -77,7 +77,7 @@ func (is *ItemStore) Search(name string) []Item {
 	return result
 }
 
-func (is *ItemStore) FilterByPrice(price float64) []Item {
+func (is *ItemStore) FilterByPrice() []Item {
 	result := make([]Item, len(is.Items))
 	copy(result, is.Items)
 	sort.Slice(result, func(i, j int) bool {
@@ -86,7 +86,7 @@ func (is *ItemStore) FilterByPrice(price float64) []Item {
 	return result
 }
 
-func (is *ItemStore) FilterByRating(price float64) []Item {
+func (is *ItemStore) FilterByRating() []Item {
 	result := make([]Item, len(is.Items))
 	copy(result, is.Items)
 	sort.Slice(result, func(i, j int) bool {
