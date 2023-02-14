@@ -61,9 +61,11 @@ func (u User) String() string {
 }
 
 func (u *User) GiveRating(name string, rating float64) {
-	item := u.Search(name)
-	item.Rating = rating
-	fmt.Println(item)
+	for _, item := range u.Items.Items {
+		if item.Name == name {
+			item.Rating = rating
+		}
+	}
 }
 
 func (i Item) String() string {
